@@ -1,8 +1,8 @@
-function! RunGS(file_path,vertical)
+function! gs#RunGS(file_path,vertical)
   belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
 endfunction 
 
-function AddQuote()
+function gs#AddQuote()
   let line = getline('.')
   let lineNumber = line('.')
    
@@ -13,7 +13,7 @@ function AddQuote()
   endif
 endfunction
 
-function! RunFileGS(...)
+function! gs#RunFileGS(...)
   let fnamemodify(a:2,':t:e')
   
   if file_extension != 'ps'
@@ -24,10 +24,10 @@ function! RunFileGS(...)
      throw 'File not found'
   endif
   
-  call RunGS(a:2,a:1)
+  call gs#RunGS(a:2,a:1)
 endfunction
 
-function! RunCurrGS(...)
+function! gs#RunCurrGS(...)
    let file_path = expand('%:p') 
 
   if &filetype != 'postscr' 
@@ -35,14 +35,14 @@ function! RunCurrGS(...)
      return ''
   endif
 
-  call RunGS(file_path,a:1)     
+  call gs#RunGS(file_path,a:1)     
 endfunction 
 
-function! GSProxy(...)
+function! gs#GSProxy(...)
   if a:0  == 2
-    call RunFileGS(a:1,a:2)
+    call gs#RunFileGS(a:1,a:2)
   elseif a:0 == 1
-    call RunCurrGS(a:1)
+    call gs#RunCurrGS(a:1)
   endif
 endfunction
 
