@@ -2,7 +2,7 @@ function! gs#RunGS(file_path,vertical)
   belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
 endfunction 
 
-function gs#AddQuote()
+function gs#AddComment()
   let line = getline('.')
   let lineNumber = line('.')
    
@@ -14,7 +14,7 @@ function gs#AddQuote()
 endfunction
 
 function! gs#RunFileGS(...)
-  let fnamemodify(a:2,':t:e')
+  let file_extension = fnamemodify(a:2,':t:e')
   
   if file_extension != 'ps'
      throw 'Invalid Extension'
