@@ -4,8 +4,11 @@
  - Commands
    - VGS - Vertical Split GhostScript 
    - GS  - Horizontal Split GhostScript 
-   - AQ  - Commenting  
+   - AC  - Single Line Commenting  
+   - AMC  - Multiple Line Commenting  
  - Example Mappings
    ``
-     map <C-E> :VGS<Enter>
+      map <C-e> :VGS<Enter>
+      map <C-_> :AC<Enter>
+      xnoremap <C-_> :AMC<Enter>
    ``

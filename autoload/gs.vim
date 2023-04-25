@@ -1,4 +1,4 @@
-function! gs#RunGS(file_path,vertical)
+function! gs#RunGSTerminal(file_path,vertical)
   belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
 endfunction 
 
@@ -35,17 +35,17 @@ function! gs#RunFileGS(...)
      throw 'File not found'
   endif
   
-  call gs#RunGS(a:2,a:1)
+  call gs#RunGSTerminal(a:2,a:1)
 endfunction
 
 function! gs#RunCurrGS(...)
    let file_path = expand('%:p') 
 
   if &filetype != 'postscr' 
-     throw 'Invalid Extension type'
+     throw 'Invalid Extension Type'
   endif
 
-  call gs#RunGS(file_path,a:1)     
+  call gs#RunGSTerminal(file_path,a:1)     
 endfunction 
 
 function! gs#GSProxy(...)
