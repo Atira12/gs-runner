@@ -2,7 +2,18 @@ function! gs#RunGS(file_path,vertical)
   belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
 endfunction 
 
-function gs#AddComment()
+function! gs#MultiLineComment()
+  let line = getline('.')
+  let lineNumber = line('.')
+   
+  if trim(line)[0] == '%'
+    call setline(lineNumber, substitute(line, '%','','g') )
+  else
+    call setline(lineNumber, '%' .. line)
+  endif
+endfunction
+
+function! gs#SingleLineComment()
   let line = getline('.')
   let lineNumber = line('.')
    
@@ -32,7 +43,6 @@ function! gs#RunCurrGS(...)
 
   if &filetype != 'postscr' 
      throw 'Invalid Extension type'
-     return ''
   endif
 
   call gs#RunGS(file_path,a:1)     
