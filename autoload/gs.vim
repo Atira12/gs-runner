@@ -1,5 +1,10 @@
+let g:gsRunnerDefaultParameters = #{ 
+    position: "belowright",
+    terminalParameters: {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'},
+}
+
 function! gs#RunGSTerminal(file_path,vertical)
-  belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
+  belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), gsRunnerDefaultParameters.terminalParameters)
 endfunction 
 
 function! gs#MultiLineComment()
