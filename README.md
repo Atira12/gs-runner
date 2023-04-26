@@ -1,14 +1,18 @@
+### Vim plugin designed for simplifying PostScript/GhostScript 
 
-## Vim Plugin for executing PostScript(GhostScript) code
- <b style="color:red"> Commenting works for all files  </b>
- - Commands
-   - VGS - Vertical Split GhostScript 
-   - GS  - Horizontal Split GhostScript 
-   - AC  - Single Line Commenting  
-   - AMC  - Multiple Line Commenting  
- - Example Mappings
-   ``
-      map <C-e> :VGS<Enter>
-      map <C-_> :AC<Enter>
-      xnoremap <C-_> :AMC<Enter>
-   ``
+#### Commands
+ - AMC :  Add multiple line comment
+ - AC : Add single line comment
+ - GS - Run GhostScript interpreter for current file 
+ - FGS - Run GhostScript interpreter for specified file
+
+
+#### Requirements
+  - GhostScript Interpreter
+
+#### Recommended mappings
+```
+   map <C-e> :GS({'vertical':1})<Enter>
+   map <C-_> :AC<Enter>
+   xnoremap <C-_> :AMC<Enter>
+```

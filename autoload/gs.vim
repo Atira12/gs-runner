@@ -1,5 +1,13 @@
-function! gs#RunGSTerminal(file_path,vertical)
-  belowright call term_start('gs ' .. substitute(a:file_path, "\\~",$HOME,"g"), {'vertical': a:vertical,'term_finish': 'close', 'term_name':'GS'})
+let s:defaultTerminalParameters = #{
+  \ term_finish: 'close',
+  \ term_name: 'GS',
+  \ vertical: 'false'
+\}
+
+let s:defaultInterpreter = 'gs'
+
+function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
+       belowright  call term_start(s:defaultInterpreter .. ' ' .. substitute(a:filePath, "\\~",$HOME,"g"),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
 function! gs#MultiLineComment()
@@ -25,34 +33,32 @@ function! gs#SingleLineComment()
 endfunction
 
 function! gs#RunFileGS(...)
-  let file_extension = fnamemodify(a:2,':t:e')
+  let fileExtension = fnamemodify(a:1,':t:e')
   
-  if file_extension != 'ps'
+  if fileExtension != 'ps'
      throw 'Invalid Extension'
   endif 
 
-  if empty(glob(a:2))
+  if empty(glob(a:1))
      throw 'File not found'
   endif
-  
-  call gs#RunGSTerminal(a:2,a:1)
+  echo a:0  
+  if a:0 == 1
+    call gs#RunGSTerminal(a:1)     
+  else
+    call gs#RunGSTerminal(a:1,a:2)     
+  endif
 endfunction
 
 function! gs#RunCurrGS(...)
-   let file_path = expand('%:p') 
+   let filePath = expand('%:p') 
 
   if &filetype != 'postscr' 
      throw 'Invalid Extension Type'
   endif
-
-  call gs#RunGSTerminal(file_path,a:1)     
-endfunction 
-
-function! gs#GSProxy(...)
-  if a:0  == 2
-    call gs#RunFileGS(a:1,a:2)
-  elseif a:0 == 1
-    call gs#RunCurrGS(a:1)
+  if a:0 == 0
+    call gs#RunGSTerminal(filePath)     
+  else
+    call gs#RunGSTerminal(filePath,a:1)     
   endif
-endfunction
-
+endfunction 
