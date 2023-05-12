@@ -1,7 +1,12 @@
+function! gs#errorLog(message)
+  echoerr a:message
+endfunction
+
 let s:defaultTerminalParameters = #{
   \ term_finish: 'close',
   \ term_name: 'GS',
-  \ vertical: 'false'
+  \ vertical: v:false,
+  \ err_msg: {-> gs#errorLog("Terminal error") },
 \}
 
 let s:defaultInterpreter = 'gs'
@@ -36,8 +41,8 @@ function! gs#RunFileGS(...)
   let fileExtension = fnamemodify(a:1,':t:e')
   
   if fileExtension != 'ps'
-     echoerr 'Invalid Extension'
-     return
+      echoerr "Invalid Extension"
+      return
   endif 
 
   if empty(glob(a:1))
@@ -56,7 +61,7 @@ function! gs#RunCurrGS(...)
    let filePath = expand('%:p') 
 
   if &filetype != 'postscr' 
-     echoerr 'Invalid Extension Type'
+     echoerr "Invalid Extension Type"
      return
   endif
   if a:0 == 0
