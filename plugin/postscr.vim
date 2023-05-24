@@ -2,28 +2,35 @@ if exists("b:current_syntax") && b:current_syntax == 'gs'
    finish
 endif
 
+if &filetype != 'postscr' || !has('postscript')
+   finish
+endif
+
 function! GSMethodMark()
   let saved_view = winsaveview()
   try
-    if empty(prop_type_get('private_method',{'bufnr': bufnr('%')}))
-            call prop_type_add('private_method', {
+    if empty(prop_type_get('gs_method',{'bufnr': bufnr('%')}))
+            call prop_type_add('gs_method', {
               \ 'bufnr': bufnr('%'),
               \ 'highlight': 'Method',
               \ 'combine': v:true
               \ })
     endif 
     
-    call prop_remove({'type': 'private_method', 'all': v:true})
+    call prop_remove({'type': 'gs_method', 'all': v:true})
     
     normal! gg0
 
     let methodCalls = []
-    while search('\/\w*','W') > 0
+    while search('\/\W*','W') > 0
+	    if getline('.')[0] == '%'
+		continue
+            endif
 	    let currentWord = expand('<cword>')
             let methodCalls += [currentWord]
             call prop_add(line('.'), col('.'), {
             \ 'length': len(currentWord)+1,
-            \ 'type': 'private_method'
+            \ 'type': 'gs_method'
             \ }) 
     endwhile
 
@@ -74,7 +81,7 @@ syntax keyword gsStructCommand
 
 syntax keyword gsGeneralCommand
      \ exch dup count roll exec pop add sub mul div idiv abs mod 
-     \ ceiling floor round truncate sqrt atan cos sin exp ln log rand neg 
+     \ ceiling floor round truncate sqrt atan cos sin exp ln log rand neg counttomark
 
 syntax keyword gsSpecialCommand
      \  def bind aload exit pstack aload print stack astore load pathbbox save run restore
@@ -86,7 +93,7 @@ syntax keyword gsDrawCommand
 syntax keyword gsGlobal
      \ gsave grestore currentdict currentlinewidth setdash setlinewidth setlinejoin setlinecap currentpoint
 
-syntax match gsBracket  "[(){}]"
+syntax match gsBracket  "[(){}\[\]]"
 
 hi def link gsConstant Constant
 hi def link gsBracket Bracket 
@@ -94,7 +101,6 @@ hi def link gsComment Comment
 hi def link gsMatrix Matrix
 hi def link gsException Exception
 
-" hi def link gsMethod Method
 hi def link gsGeneralCommand GeneralCommand
 hi def link gsStructCommand StructCommand
 hi def link gsOperationCommand OperationCommand
@@ -102,6 +108,5 @@ hi def link gsDrawCommand DrawCommand
 hi def link gsGlobal Global
 hi def link gsSpecialCommand SpecialCommand
 
-
+autocmd TextChanged <buffer> call GSMethodMark()
 let b:current_syntax = 'gs'
-autocmd TextChanged <buffer>  *.ps call GSMethodMark() 

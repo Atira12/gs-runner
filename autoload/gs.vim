@@ -36,11 +36,13 @@ function! gs#RunFileGS(...)
   let fileExtension = fnamemodify(a:1,':t:e')
   
   if fileExtension != 'ps'
-     throw 'Invalid Extension'
+     echoerr 'Invalid Extension'
+     return
   endif 
 
   if empty(glob(a:1))
-     throw 'File not found'
+     echoerr 'File not found'
+     return
   endif
   echo a:0  
   if a:0 == 1
@@ -54,7 +56,8 @@ function! gs#RunCurrGS(...)
    let filePath = expand('%:p') 
 
   if &filetype != 'postscr' 
-     throw 'Invalid Extension Type'
+     echoerr 'Invalid Extension Type'
+     return
   endif
   if a:0 == 0
     call gs#RunGSTerminal(filePath)     
