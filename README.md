@@ -16,3 +16,6 @@
    map <C-_> :AC<Enter>
    xnoremap <C-_> :AMC<Enter>
 ```
+#### Recommended syntax highlighting
+  1. Create a new folder .vim/syntax
+  2. Move postscr.vim to the .vim/syntax folder
