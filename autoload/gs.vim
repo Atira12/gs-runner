@@ -7,8 +7,30 @@ let s:defaultTerminalParameters = #{
 let s:defaultInterpreter = 'gs'
 
 function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
-       belowright  call term_start(s:defaultInterpreter .. ' ' .. substitute(a:filePath, "\\~",$HOME,"g"),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
+       belowright  call term_start(s:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
+
+function! gs#ExportCurr(mediaType,outputFile)
+    try 
+        let printCommand = s:defaultInterpreter .. ' -sDEVICE=' .. a:mediaType .. ' -o ' .. a:outputFile .. ' ' .. expand('%:p')
+        call system(printCommand)
+    catch
+	echoerr 'Something went wrong'
+    endtry
+endfunction
+
+function! gs#ExportFile(filePath,mediaType,outputFile)
+    if !filereadable(expand(a:filePath)) 
+       echoerr 'Invalid File path'
+       return
+    endif
+    try 
+        let printCommand = s:defaultInterpreter .. ' -sDEVICE=' .. a:mediaType .. ' -o ' .. a:outputFile .. ' ' .. a:filePath
+        call system(printCommand)
+    catch
+	echoerr 'Something went wrong'
+    endtry
+endfunction
 
 function! gs#MultiLineComment()
   let line = getline('.')
@@ -33,18 +55,12 @@ function! gs#SingleLineComment()
 endfunction
 
 function! gs#RunFileGS(...)
-  let fileExtension = fnamemodify(a:1,':t:e')
-  
-  if fileExtension != 'ps'
-     echoerr 'Invalid Extension'
+  let filePath = expand(a:1)
+  if !filereadable(filePath) || fnamemodify(filePath,':t:e') != 'ps'
+     echoerr 'Invalid File'
      return
   endif 
 
-  if empty(glob(a:1))
-     echoerr 'File not found'
-     return
-  endif
-  echo a:0  
   if a:0 == 1
     call gs#RunGSTerminal(a:1)     
   else
