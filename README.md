@@ -13,8 +13,6 @@
 #### Recommended mappings
 ```
    map <C-e> :GS({'vertical':1})<Enter>
-   map <C-_> :AC<Enter>
-   xnoremap <C-_> :AMC<Enter>
 ```
 #### Recommended syntax highlighting
   1. Create a new folder .vim/syntax

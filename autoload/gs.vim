@@ -28,7 +28,9 @@ function! gs#Export(...)
     endtry
 endfunction
 
-function! gs#MultiLineComment()
+
+" COmmenting <line1> lecture 4 
+function! gs#MultiLineComment(line1, line2)
   let line = getline('.')
   let lineNumber = line('.')
    
