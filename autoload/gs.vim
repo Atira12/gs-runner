@@ -29,27 +29,16 @@ function! gs#Export(...)
 endfunction
 
 
-" COmmenting <line1> lecture 4 
-function! gs#MultiLineComment(line1, line2)
-  let line = getline('.')
-  let lineNumber = line('.')
-   
-  if trim(line)[0] == '%'
-    call setline(lineNumber, substitute(line, '%','','g') )
-  else
-    call setline(lineNumber, '%' .. line)
-  endif
-endfunction
-
-function! gs#SingleLineComment()
-  let line = getline('.')
-  let lineNumber = line('.')
-   
-  if trim(line)[0] == '%'
-    call setline(lineNumber, substitute(line, '%','','g') )
-  else
-    call setline(lineNumber, '%' .. line)
-  endif
+" Commenting <line1> lecture 4 
+function! gs#MultiLineComment(startLine, endLine)
+  for lineNumber in range(a:startLine, a:endLine) 
+     let line = getline(lineNumber)
+     if line[0] == '%'
+       call setline(lineNumber, line[1:])
+     else
+       call setline(lineNumber, '%' .. line)
+     endif
+  endfor
 endfunction
 
 function! gs#RunFileGS(...)
