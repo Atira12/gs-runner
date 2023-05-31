@@ -28,9 +28,7 @@ function! gs#Export(...)
     endtry
 endfunction
 
-
-" Commenting <line1> lecture 4 
-function! gs#MultiLineComment(startLine, endLine)
+function! gs#Comment(startLine, endLine)
   for lineNumber in range(a:startLine, a:endLine) 
      let line = getline(lineNumber)
      if line[0] == '%'
