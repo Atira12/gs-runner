@@ -1,6 +1,5 @@
 command! -nargs=? GS call gs#RunCurrGS(<args>)
-command! -complete=file -nargs=* FGS call gs#RunFileGS(<f-args>)
-
+command! -complete=file -nargs=* GSF call gs#RunFileGS(<f-args>)
 command! -range -nargs=0 GSC call gs#Comment(<line1>, <line2>)
 command! -complete=file -nargs=* GSExport call gs#Export(<f-args>)
 
