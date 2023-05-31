@@ -28,26 +28,15 @@ function! gs#Export(...)
     endtry
 endfunction
 
-function! gs#MultiLineComment()
-  let line = getline('.')
-  let lineNumber = line('.')
-   
-  if trim(line)[0] == '%'
-    call setline(lineNumber, substitute(line, '%','','g') )
-  else
-    call setline(lineNumber, '%' .. line)
-  endif
-endfunction
-
-function! gs#SingleLineComment()
-  let line = getline('.')
-  let lineNumber = line('.')
-   
-  if trim(line)[0] == '%'
-    call setline(lineNumber, substitute(line, '%','','g') )
-  else
-    call setline(lineNumber, '%' .. line)
-  endif
+function! gs#Comment(startLine, endLine)
+  for lineNumber in range(a:startLine, a:endLine) 
+     let line = getline(lineNumber)
+     if line[0] == '%'
+       call setline(lineNumber, line[1:])
+     else
+       call setline(lineNumber, '%' .. line)
+     endif
+  endfor
 endfunction
 
 function! gs#RunFileGS(...)

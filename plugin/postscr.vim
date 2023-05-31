@@ -63,35 +63,44 @@ call GSMethodMark()
 syntax match gsComment "%.*" 
 
 syntax keyword gsException
-     \ undefined rangecheck syntaxerror typecheck undefinedfilename undefinedresult
+     \ undefined rangecheck syntaxerror typecheck 
+     \ undefinedfilename undefinedresult
      \ unmatchedmark dictstackoverflow
 
 syntax keyword gsMatrix
-     \ matrix defaultmatrix currentmatrix scale translate rotate concat setmatrix identmatrix
+     \ matrix defaultmatrix 
+     \ currentmatrix scale translate rotate 
+     \ concat setmatrix identmatrix
      \ transform itransform concatmatrix idtransform invertmatrix
 
 syntax keyword gsConstant
      \ true false mark 
 
 syntax keyword gsOperationCommand
-     \ if not ifelse or and lt le gt ge ne eq for forall repeat loop quit pathforall 
+     \ if not ifelse or and lt le gt 
+     \ ge ne eq for forall repeat loop quit pathforall 
 
 syntax keyword gsStructCommand
      \ array copy get put getinterval dict begin end index length
 
 syntax keyword gsGeneralCommand
      \ exch dup count roll exec pop add sub mul div idiv abs mod 
-     \ ceiling floor round truncate sqrt atan cos sin exp ln log rand neg counttomark
+     \ ceiling floor round truncate sqrt 
+     \ atan cos sin exp ln log rand neg counttomark
 
 syntax keyword gsSpecialCommand
      \  def bind aload exit pstack aload print stack astore load pathbbox save run restore
 
 syntax keyword gsDrawCommand
-     \ stroke strokepath newpath moveto lineto rmoveto rlineto arc arcn closepath 
-     \ fill chip pathbox setgray setfont setrgbcolor rcurveto curveto scalefont stringwidth showpage show shfill fill
+     \ stroke strokepath newpath
+     \ moveto lineto rmoveto rlineto arc arcn closepath 
+     \ fill chip pathbox setgray setfont 
+     \ setrgbcolor rcurveto curveto scalefont 
+     \ stringwidth showpage show shfill fill
 
 syntax keyword gsGlobal
-     \ gsave grestore currentdict currentlinewidth setdash setlinewidth setlinejoin setlinecap currentpoint
+     \ gsave grestore currentdict currentlinewidth setdash 
+     \ setlinewidth setlinejoin setlinecap currentpoint
 
 syntax match gsBracket  "[(){}\[\]]"
 

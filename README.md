@@ -1,8 +1,7 @@
 ### Vim plugin designed for simplifying PostScript/GhostScript 
 
 #### Commands
- - AMC :  Add multiple line comment
- - AC : Add single line comment
+ - GSC - Comment a line 
  - GS - Run GhostScript interpreter for current file 
  - FGS - Run GhostScript interpreter for specified file
 
@@ -13,8 +12,7 @@
 #### Recommended mappings
 ```
    map <C-e> :GS({'vertical':1})<Enter>
-   map <C-_> :AC<Enter>
-   xnoremap <C-_> :AMC<Enter>
+   map <C-_> :GSC()<Enter>
 ```
 #### Recommended syntax highlighting
   1. Create a new folder .vim/syntax
