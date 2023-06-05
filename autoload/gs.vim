@@ -58,7 +58,7 @@ function! gs#RunCurrGS(options = {}) abort
   try
     let filePath = expand('%:p') 
 
-    if !filereadable(filePath) || &filetype != 'postscr' 
+    if &filetype != 'postscr' 
        echoerr 'Invalid File Type'
        return
     endif

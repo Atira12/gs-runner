@@ -1,3 +1,8 @@
+" Vim Postscript syntax file 
+" Language:     PostScript
+" Maintainer:   Anton Antov
+" Origin:       https://github.com/Atira12/gs-runner
+
 if exists("b:current_syntax") && b:current_syntax == 'gs'
    finish
 endif
