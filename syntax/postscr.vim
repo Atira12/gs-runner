@@ -1,3 +1,8 @@
+" Vim Postscript syntax file 
+" Language:     PostScript
+" Maintainer:   Anton Antov
+" Origin:       https://github.com/Atira12/gs-runner
+
 if exists("b:current_syntax") && b:current_syntax == 'gs'
    finish
 endif
@@ -19,10 +24,12 @@ function! GSMethodMark()
     
     call prop_remove({'type': 'gs_method', 'all': v:true})
     
-    normal! gg0
+    normal! G$
 
     let methodCalls = []
-    while search('\/\W*','W') > 0
+    let flags = 'w'
+    while search('\/\W*',flags) > 0
+	    let flags = 'W'
 	    if getline('.')[0] == '%'
 		continue
             endif

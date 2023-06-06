@@ -1,13 +1,13 @@
 let s:defaultTerminalParameters = #{
   \ term_finish: 'close',
   \ term_name: 'GS',
-  \ vertical: 'false'
+  \ vertical: 0
 \}
 
 let s:defaultInterpreter = 'gs'
 
 function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
-       belowright  call term_start(s:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
+      belowright  call term_start(s:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
 function! gs#Export(...)
@@ -39,30 +39,32 @@ function! gs#Comment(startLine, endLine)
   endfor
 endfunction
 
-function! gs#RunFileGS(...)
-  let filePath = expand(a:1)
-  if !filereadable(filePath) || !&filetype == 'postscr'
-     echoerr 'Invalid File'
-     return
-  endif 
+function! gs#RunFileGS(file,options = {}) abort
+  try
+    let filePath = expand(a:file) 
 
-  if a:0 == 1
-    call gs#RunGSTerminal(a:1)     
-  else
-    call gs#RunGSTerminal(a:1,a:2)     
-  endif
-endfunction
+    if !filereadable(filePath) 
+       echoerr 'Invalid File Type'
+       return
+    endif
 
-function! gs#RunCurrGS(...)
-   let filePath = expand('%:p') 
+    call gs#RunGSTerminal(filePath,a:options)
+  catch
+    echoerr 'Unable to run GS'
+  endtry
+endfunction 
 
-  if &filetype != 'postscr' 
-     echoerr 'Invalid Extension Type'
-     return
-  endif
-  if a:0 == 0
-    call gs#RunGSTerminal(filePath)     
-  else
-    call gs#RunGSTerminal(filePath,a:1)     
-  endif
+function! gs#RunCurrGS(options = {}) abort
+  try
+    let filePath = expand('%:p') 
+
+    if &filetype != 'postscr' 
+       echoerr 'Invalid File Type'
+       return
+    endif
+
+    call gs#RunGSTerminal(filePath,a:options)
+  catch
+    echoerr 'Unable to run GS'
+  endtry
 endfunction 
