@@ -57,11 +57,13 @@ hi GeneralCommand guifg=#5da26b
 hi StructCommand guifg=#aa55a8
 hi OperationCommand guifg=#e97f16
 hi DrawCommand guifg=#28c345
+hi FileCommand guifg=#9cf7c6
 hi Global guifg=#96697b
 
 " General coloring
+hi String guifg=#619e88
 hi Bracket guifg=#157887
-hi Constant guifg=#c8c137
+hi Constant guifg=#b5bd85
 hi Matrix guifg=#5797a8
 hi Method guifg=#22c4dd 
 hi Exception guifg=#fc0307
@@ -82,6 +84,8 @@ syntax keyword gsMatrix
 
 syntax keyword gsConstant
      \ true false mark 
+
+syntax match gsGlobalConstant "[a-zA-Z0-9]"
 
 syntax keyword gsOperationCommand
      \ if not ifelse or and lt le gt 
@@ -104,13 +108,22 @@ syntax keyword gsDrawCommand
      \ fill chip pathbox setgray setfont 
      \ setrgbcolor rcurveto curveto scalefont 
      \ stringwidth showpage show shfill fill
+     \ rectfill rectstroke ustroke ufill ueofill ustrokepath uappend infill ineofill 
+     \ gstate setgstate 
+
+syntax keyword gsFileCommand 
+     \ file read write readstring writestring readline flushfile flush currentfile 
+     \ bytesavailable fileposition setfileposition resetfile deletefile renamefile token filter
 
 syntax keyword gsGlobal
      \ gsave grestore currentdict currentlinewidth setdash 
      \ setlinewidth setlinejoin setlinecap currentpoint
+     \ save restore
+syntax match gsBracket  "[{}\[\]]"
 
-syntax match gsBracket  "[(){}\[\]]"
+syntax region gsString start="(" end=")" 
 
+hi def link gsString String 
 hi def link gsConstant Constant
 hi def link gsBracket Bracket 
 hi def link gsComment Comment
@@ -123,6 +136,8 @@ hi def link gsOperationCommand OperationCommand
 hi def link gsDrawCommand DrawCommand
 hi def link gsGlobal Global
 hi def link gsSpecialCommand SpecialCommand
+hi def link gsFileCommand FileCommand
+hi def link gsGlobalConstant Constant
 
 autocmd TextChanged <buffer> call GSMethodMark()
 let b:current_syntax = 'gs'
