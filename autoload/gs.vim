@@ -12,19 +12,19 @@ endfunction
 
 function! gs#Export(...)
     try
-        if a:0 == 2
-           let fileToExport = expand('%:p')
-	elseif a:0 == 3
-	   let fileToExport = expand(a:3)
-	else 
-	   throw 'Invalid'
-	endif
-       call system(s:defaultInterpreter 
-       \ .. ' -sDEVICE=' .. a:1 
-       \ .. ' -o ' .. a:2 .. ' '
-       \ .. fileToExport)
-    catch
-	echoerr 'Invalid export parameters'
+      if a:0 == 2
+               let fileToExport = expand('%:p')
+      elseif a:0 == 3
+         let fileToExport = expand(a:3)
+      else 
+         throw 'Invalid'
+      endif
+           call system(s:defaultInterpreter 
+           \ .. ' -sDEVICE=' .. a:1 
+           \ .. ' -o ' .. a:2 .. ' '
+           \ .. fileToExport)
+        catch
+      echoerr 'Invalid export parameters'
     endtry
 endfunction
 
