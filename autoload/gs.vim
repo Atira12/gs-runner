@@ -13,7 +13,7 @@ endfunction
 function! gs#Export(...)
     try
       if a:0 == 2
-               let fileToExport = expand('%:p')
+         let fileToExport = expand('%:p')
       elseif a:0 == 3
          let fileToExport = expand(a:3)
       else 
