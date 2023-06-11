@@ -4,10 +4,10 @@ let s:defaultTerminalParameters = #{
   \ vertical: 0
 \}
 
-let s:defaultInterpreter = 'gs'
+let g:defaultInterpreter = exists("g:defaultInterpreter") ? g:defaultInterpreter : 'gs'
 
 function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
-      belowright  call term_start(s:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
+      belowright  call term_start(g:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
 function! gs#Export(...)
