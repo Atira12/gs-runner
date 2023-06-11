@@ -28,9 +28,9 @@ function! GSMethodMark()
 
     let methodCalls = []
     let flags = 'w'
-    while search('\/\W*',flags) > 0
+    while search('\/[a-zA-Z0-9/\>-\<_]*\s\+',flags) > 0
 	    let flags = 'W'
-	    if getline('.')[0] == '%'
+	    if getline('.')[0] == '%' 
 		continue
             endif
 	    let currentWord = expand('<cword>')
@@ -53,7 +53,7 @@ endfunction
 
 " PostScript Command Coloring
 hi SpecialCommand guifg=#22c4dd 
-hi GeneralCommand guifg=#5da26b
+hi GeneralCommand guifg=#b24e4d
 hi StructCommand guifg=#aa55a8
 hi OperationCommand guifg=#e97f16
 hi DrawCommand guifg=#28c345
@@ -64,6 +64,7 @@ hi Global guifg=#96697b
 hi String guifg=#619e88
 hi Bracket guifg=#157887
 hi Constant guifg=#b5bd85
+hi Font guifg=#d8d527
 hi Matrix guifg=#5797a8
 hi Method guifg=#22c4dd 
 hi Exception guifg=#fc0307
@@ -77,8 +78,9 @@ syntax keyword gsException
      \ unmatchedmark dictstackoverflow
 
 syntax keyword gsMatrix
+     \ gsave grestore
      \ matrix defaultmatrix 
-     \ currentmatrix scale translate rotate 
+     \  scale translate rotate 
      \ concat setmatrix identmatrix
      \ transform itransform concatmatrix idtransform invertmatrix
 
@@ -92,7 +94,7 @@ syntax keyword gsOperationCommand
      \ ge ne eq for forall repeat loop quit pathforall 
 
 syntax keyword gsStructCommand
-     \ array copy get put getinterval dict begin end index length
+     \ array copy get put getinterval dict begin end index length string
 
 syntax keyword gsGeneralCommand
      \ exch dup count roll exec pop add sub mul div idiv abs mod 
@@ -103,22 +105,27 @@ syntax keyword gsSpecialCommand
      \  def bind aload exit pstack aload print stack astore load pathbbox save run restore
 
 syntax keyword gsDrawCommand
-     \ stroke strokepath newpath
+     \ stroke strokepath newpath setlinewidth setlinejoin setlinecap
      \ moveto lineto rmoveto rlineto arc arcn closepath 
      \ fill chip pathbox setgray setfont 
-     \ setrgbcolor rcurveto curveto scalefont 
-     \ stringwidth showpage show shfill fill
+     \ setrgbcolor rcurveto curveto setdash  
+     \ stringwidth shfill fill
      \ rectfill rectstroke ustroke ufill ueofill ustrokepath uappend infill ineofill 
      \ gstate setgstate 
 
+syntax keyword gsFontCommand
+     \ showpage show ashow widthshow awidthshow xshow setfont  
+     \ yshow xyshow cshow kshow glyphshow stringwidth charpath findfont scalefont
+     \  makefont selectfont  definefont
+
 syntax keyword gsFileCommand 
-     \ file read write readstring writestring readline flushfile flush currentfile 
+     \ file read write readstring writestring readline flushfile flush  
      \ bytesavailable fileposition setfileposition resetfile deletefile renamefile token filter
 
 syntax keyword gsGlobal
-     \ gsave grestore currentdict currentlinewidth setdash 
-     \ setlinewidth setlinejoin setlinecap currentpoint
-     \ save restore
+     \  currentdict currentlinewidth 
+     \  currentpoint save restore currentfont currentmatrix
+     \  currentfile
 syntax match gsBracket  "[{}\[\]]"
 
 syntax region gsString start="(" end=")" 
@@ -138,6 +145,7 @@ hi def link gsGlobal Global
 hi def link gsSpecialCommand SpecialCommand
 hi def link gsFileCommand FileCommand
 hi def link gsGlobalConstant Constant
+hi def link gsFontCommand DrawCommand
 
 autocmd TextChanged <buffer> call GSMethodMark()
 let b:current_syntax = 'gs'
