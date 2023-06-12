@@ -28,7 +28,7 @@ function! GSMethodMark()
 
     let methodCalls = []
     let flags = 'w'
-    while search('\/[a-zA-Z0-9/\>-\<_]*\s\+',flags) > 0
+    while search('\/\S*\s',flags) > 0
 	    let flags = 'W'
 	    if getline('.')[0] == '%' 
 		continue
@@ -45,7 +45,6 @@ function! GSMethodMark()
         execute 'syntax keyword gsMethodCalls' methodCall
     endfor 
     hi def link gsMethodCalls Method 
-
   finally
      call winrestview(saved_view)
   endtry

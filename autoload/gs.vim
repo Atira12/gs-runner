@@ -4,10 +4,12 @@ let s:defaultTerminalParameters = #{
   \ vertical: 0
 \}
 
-let g:defaultInterpreter = exists("g:defaultInterpreter") ? g:defaultInterpreter : 'gs'
+let g:interpreter = exists("g:interpreter") ? g:interpreter : 'gs'
+let g:interpreterParameters = exists("g:interpreterParameters") ? g:interpreterParameters : ''
 
 function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
-      belowright  call term_start(g:defaultInterpreter .. ' ' .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
+      belowright  call term_start(g:interpreter .. ' ' .. g:interpreterParameters .. ' '
+      \ .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
 function! gs#Export(...)
@@ -19,7 +21,7 @@ function! gs#Export(...)
       else 
          throw 'Invalid'
       endif
-           call system(s:defaultInterpreter 
+           call system(g:interpreter 
            \ .. ' -sDEVICE=' .. a:1 
            \ .. ' -o ' .. a:2 .. ' '
            \ .. fileToExport)
@@ -54,7 +56,7 @@ function! gs#RunFileGS(file,options = {}) abort
   endtry
 endfunction 
 
-function! gs#RunCurrGS(options = {}) abort
+function! gs#RunCurrGS(options = {})
   try
     let filePath = expand('%:p') 
 

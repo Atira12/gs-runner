@@ -1,3 +1,5 @@
+# GhostScript Runner
+
 ### Vim plugin designed for simplifying PostScript/GhostScript
 
 #### Commands
@@ -18,7 +20,11 @@
    map <C-e> :GS({'vertical':1})<Enter>
    map <C-_> :GSC()<Enter>
 ```
-
+#### Overrides
+```
+  let g:interpreter = '<custom-interpreter>'
+  let g:interpreterParameters = '-dNOSAFER'
+```
 #### Install Plugin
 
 - Vim-Plug
