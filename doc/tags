@@ -1,0 +1,11 @@
+g:interpreter	plug.txt	/*g:interpreter*
+g:interpreterParameters	plug.txt	/*g:interpreterParameters*
+gs-runner	plug.txt	/*gs-runner*
+gs-runner-commands	plug.txt	/*gs-runner-commands*
+gs-runner-doc	plug.txt	/*gs-runner-doc*
+gs-runner-global-opts	plug.txt	/*gs-runner-global-opts*
+gs-runner-help	plug.txt	/*gs-runner-help*
+gs-runner-install	plug.txt	/*gs-runner-install*
+gs-runner-maps	plug.txt	/*gs-runner-maps*
+gs-runner-syn	plug.txt	/*gs-runner-syn*
+gs-runner-usage	plug.txt	/*gs-runner-usage*

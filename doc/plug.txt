@@ -1,0 +1,99 @@
+GSRUNNER - TABLE OF CONTENT                                    *gs-runner-doc*
+==============================================================================
+
+  GSRUNNER
+    Installation 
+     Vim
+       Vim-Plug 
+    Usage
+      Example
+    Highlighting
+    Commands
+    Global options
+    Mapping Example
+
+GS-RUNNER                                                    *gs-runner*
+==============================================================================
+
+ Simple plugin for PostScript/ GhostScript
+
+ The plugin helps with running and syntax highlighting PostScript code 
+
+ https://github.com/Atira12/gs-runner
+
+< Installation >______________________________________________________________~
+                                                             *gs-runner-install*
+
+>> Vim-Plug~ 
+>
+   call plug#begin()
+   Plug 'Atira12/gs-runner'
+   call plug#end()
+<
+
+< Getting Help >______________________________________________________________~
+                                                             *gs-runner-help*
+
+ Help can be found here:
+  -  https://vim-fmi.bg
+  -  https://googlethatforyou.com?q=learn%20vimscript
+
+< Usage >_____________________________________________________________________~
+                                                                 *gs-runner-usage*
+
+
+< Highlighting >__________________________________________________________________~
+                                                                 *gs-runner-syn*
+
+ Coloring Types
+ ------------------------------------+-------------------------------------------------------------------
+  `gsString`          | Matching group starting with ( and ending with )
+  `gsList`            | Matching group starting with [ and ending with ]
+  `gsContant`         | Keywords for constant in PostScript
+  `gsComment`         | Matching for comments that start with %
+  `gsMatrix`          | Keywords for matrix commands
+  `gsException`       | Keywords for exceptions commands
+  `gsGeneralCommand`  | Keywords for general commands
+  `gsStructCommand`   | Keywords for structure methods 
+  `gsOperationCommand`| Keywords for operational methods  
+  `gsDrawCommand`     | Keywords for draw commands 
+  `gsGlobal`          | Keywords for command that affect the state of the stack till revert
+  `gsSpecialCommand`  | Keywords for rarely used commands 
+  `gsFileCommand`     | Keywords for file manipulation commands 
+  `gsGlobalConstant`  | All symbols not associated with method call 
+  `gsFontCommand`     | Keywords for font manipulation commands 
+ ------------------------------------+-------------------------------------------------------------------
+
+< Commands >__________________________________________________________________~
+                                                            *gs-runner-commands*
+
+ ------------------------------------+-------------------------------------------------------------------
+ Command                             | Description                                                       ~
+ ------------------------------------+-------------------------------------------------------------------
+  `GSRun`    | Run PostScript Interpreter for current file (default: GhostScript interpreter) 
+  `GSComment`| Comment / Uncomment line from PostScript file 
+  `GSRunFile`| Run PostScript Interpreter for specified file  (default: GhostScript interpreter)   
+  `GSExport` | Export PostScript code to specified format and filename
+ ------------------------------------+-------------------------------------------------------------------
+ 
+  GSRun command allows different terminal options per mapping 
+
+< Global options >____________________________________________________________~
+                                                           *gs-runner-global-opts*
+
+     *g:interpreter*
+     - PostScript interpreter command for running code (default: "gs")
+
+     *g:interpreterParameters*
+     - PostScript interpreter custom parameters string (default: "") 
+
+< Mapping Example >_______________________________________________________________~
+                                                              *gs-runner-maps*
+
+>
+   map <C-e> :GSRun({'vertical':1, 'term_finish': 'open'})<Enter>
+   map <C-_> :GSComment<Enter>
+<
+
+==============================================================================
+vim:tw=78:sw=2:ts=2:ft=help:norl:nowrap:

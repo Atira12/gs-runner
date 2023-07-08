@@ -33,8 +33,8 @@ function! GSMethodMark()
 	    if getline('.')[0] == '%' 
 		continue
             endif
-	    let currentWord = expand('<cword>')
-            let methodCalls += [currentWord]
+	    let currentWord = expand('<cWORD>')
+            let methodCalls += [currentWord[1:]]
             call prop_add(line('.'), col('.'), {
             \ 'length': len(currentWord)+1,
             \ 'type': 'gs_method'
@@ -42,7 +42,7 @@ function! GSMethodMark()
     endwhile
 
     for methodCall in methodCalls
-        execute 'syntax keyword gsMethodCalls' methodCall
+      execute 'syntax keyword  gsMethodCalls ' .. methodCall
     endfor 
     hi def link gsMethodCalls Method 
   finally
@@ -90,10 +90,11 @@ syntax match gsGlobalConstant "[a-zA-Z0-9]"
 
 syntax keyword gsOperationCommand
      \ if not ifelse or and lt le gt 
-     \ ge ne eq for forall repeat loop quit pathforall 
+     \ ge ne eq for forall repeat loop clear quit pathforall 
 
 syntax keyword gsStructCommand
-     \ array copy get put getinterval dict begin end index length string
+     \ array copy get put  getinterval putinterval dict begin end index length string
+     \ known countdictstack cleardictstack where
 
 syntax keyword gsGeneralCommand
      \ exch dup count roll exec pop add sub mul div idiv abs mod 
@@ -101,7 +102,7 @@ syntax keyword gsGeneralCommand
      \ atan cos sin exp ln log rand neg counttomark
 
 syntax keyword gsSpecialCommand
-     \  def bind aload exit pstack aload print stack astore load pathbbox save run restore
+     \ cvx undef def bind aload exit pstack aload print stack astore load pathbbox save run restore
 
 syntax keyword gsDrawCommand
      \ stroke strokepath newpath setlinewidth setlinejoin setlinecap
@@ -123,13 +124,15 @@ syntax keyword gsFileCommand
 
 syntax keyword gsGlobal
      \  currentdict currentlinewidth 
-     \  currentpoint save restore currentfont currentmatrix
-     \  currentfile
+     \  currentpoint save restore currentfont currentmatrix  currentfile
+     \  globaldict errordict systemdict userdict 
+
 syntax match gsBracket  "[{}\[\]]"
 
-syntax region gsString start="(" end=")" 
+syntax region gsString start="(" end=")" contains=gsGlobalContant
 
 hi def link gsString String 
+hi def link gsList String 
 hi def link gsConstant Constant
 hi def link gsBracket Bracket 
 hi def link gsComment Comment
@@ -146,5 +149,5 @@ hi def link gsFileCommand FileCommand
 hi def link gsGlobalConstant Constant
 hi def link gsFontCommand DrawCommand
 
-autocmd TextChanged <buffer> call GSMethodMark()
+autocmd TextChangedI <buffer> call GSMethodMark()
 let b:current_syntax = 'gs'

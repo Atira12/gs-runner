@@ -12,7 +12,7 @@ function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
       \ .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
-function! gs#Export(...)
+function! gs#Export(...) abort
     try
       if a:0 == 2
          let fileToExport = expand('%:p')
