@@ -1,3 +1,8 @@
+" Vim Postscript syntax highlighting 
+" Language:     PostScript
+" Maintainer:   Anton Antov
+" Origin:       https://github.com/Atira12/gs-runner
+
 let s:defaultTerminalParameters = #{
   \ term_finish: 'close',
   \ term_name: 'GS',
@@ -12,7 +17,7 @@ function! gs#RunGSTerminal(filePath, overrideTerminalParameters = {})
       \ .. expand(a:filePath),extend(s:defaultTerminalParameters,a:overrideTerminalParameters))
 endfunction 
 
-function! gs#Export(...) abort
+function! gs#Export(...)
     try
       if a:0 == 2
          let fileToExport = expand('%:p')
@@ -41,7 +46,7 @@ function! gs#Comment(startLine, endLine)
   endfor
 endfunction
 
-function! gs#RunFileGS(file,options = {}) abort
+function! gs#RunFileGS(file,options = {})
   try
     let filePath = expand(a:file) 
 

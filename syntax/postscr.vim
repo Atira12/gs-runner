@@ -1,4 +1,4 @@
-" Vim Postscript syntax file 
+" Vim Postscript syntax highlighting 
 " Language:     PostScript
 " Maintainer:   Anton Antov
 " Origin:       https://github.com/Atira12/gs-runner
@@ -149,5 +149,5 @@ hi def link gsFileCommand FileCommand
 hi def link gsGlobalConstant Constant
 hi def link gsFontCommand DrawCommand
 
-autocmd TextChangedI <buffer> call GSMethodMark()
+autocmd TextChangedI *.ps call GSMethodMark()
 let b:current_syntax = 'gs'

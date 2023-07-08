@@ -4,18 +4,16 @@
 
 #### Commands
 
-- GSC - Comment a line
-- GS - Run GhostScript interpreter for current file
-- FGS - Run GhostScript interpreter for specified file
-- GSExport - Export Postscript file to wanted file type
+- GSComment - Comment a line
+- GSRun - Run GhostScript interpreter for current file
+- GSRunFile - Run GhostScript interpreter for specified file
 - GSExport - Export Postscript file to wanted file type
 
 #### Requirements
 
-- GhostScript Interpreter
+- Vim Plugin for highlighting & running PostScript (GhostScript)
 
 #### Recommended mappings
-
 ```
    map <C-e> :GS({'vertical':1})<Enter>
    map <C-_> :GSC()<Enter>

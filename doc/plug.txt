@@ -10,14 +10,14 @@ GSRUNNER - TABLE OF CONTENT                                    *gs-runner-doc*
     Highlighting
     Commands
     Global options
-    Mapping Example
 
 GS-RUNNER                                                    *gs-runner*
 ==============================================================================
 
  Simple plugin for PostScript/ GhostScript
 
- The plugin helps with running and syntax highlighting PostScript code 
+ GSRunner is used to ease GhostScript file editting by providing syntax highlighting,
+ interpreter execution and commenting
 
  https://github.com/Atira12/gs-runner
 
@@ -40,6 +40,11 @@ GS-RUNNER                                                    *gs-runner*
 
 < Usage >_____________________________________________________________________~
                                                                  *gs-runner-usage*
+ Example~ 
+   >
+      map <C-e> :GSRun({'vertical':1, 'term_finish': 'open'})<Enter>
+      map <C-_> :GSComment<Enter>
+   <
 
 
 < Highlighting >__________________________________________________________________~
@@ -86,14 +91,6 @@ GS-RUNNER                                                    *gs-runner*
 
      *g:interpreterParameters*
      - PostScript interpreter custom parameters string (default: "") 
-
-< Mapping Example >_______________________________________________________________~
-                                                              *gs-runner-maps*
-
->
-   map <C-e> :GSRun({'vertical':1, 'term_finish': 'open'})<Enter>
-   map <C-_> :GSComment<Enter>
-<
 
 ==============================================================================
 vim:tw=78:sw=2:ts=2:ft=help:norl:nowrap:
